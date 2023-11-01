@@ -1,6 +1,7 @@
-const API_URL = "https://tormenta-codigo-app-terrible.vercel.app/api/podcast";
+//const API_URL = "https://tormenta-codigo-app-terrible.vercel.app/api/podcast";
+const API_URL = "https://tormenta-codigo-app-terrible.vercel.app/api/podcast/terrible";
 
-async function fetchEpisodes() {
+export async function fetchEpisodes() {
   try {
     const response = await fetch(API_URL);
     const responseData = await response.json();
@@ -11,7 +12,7 @@ async function fetchEpisodes() {
   }
 }
 
-function processEpisodes(episodes) {
+export function processEpisodes(episodes) {
   if (!episodes || episodes.length === 0) return;
 
   // Convertir duration a números y ordenar episodios por number
@@ -44,14 +45,23 @@ function processEpisodes(episodes) {
   }
 
   // Imprimir resultados
+  
   console.log("Next episode number:", nextEpisodeNumber);
   console.log("Total duration of all episodes:", totalDuration);
   console.log("Number of the shortest episode:", shortestEpisode.number);
   console.log("Titles below 2 hours:", selectedTitles);
+
+  return {
+    'nextEpisodeNumber': nextEpisodeNumber,
+    'totalDuration': totalDuration,
+    'shortestEpisode': shortestEpisode.number,
+    'selectedTitles': selectedTitles
+  }
 }
 
 async function main() {
   const episodes = await fetchEpisodes();
+  console.log('DATOS DE ARCHIVO terrible.js')
   processEpisodes(episodes);
 }
 
